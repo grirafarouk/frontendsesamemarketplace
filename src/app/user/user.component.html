@@ -1,0 +1,141 @@
+<div class="card-header">
+    <label style="font-weight:bold;color:#546E7A;">Utilisateur</label>
+</div>
+
+<div class="card-body">
+    <div class="row">
+
+        <table class="table table-responsive-sm table-hover table-outline mb-0">
+            <thead class="thead-light">
+                <tr>
+                    <td>
+                        <h6 style="color:rgba(3, 3, 3, 0.918);" class="text-center"><b>nom</b></h6>
+                    </td>
+                    <td>
+                        <h6 style="color:rgba(3, 3, 3, 0.918);" class="text-right"><b>prenom</b></h6>
+                    </td>
+                    <td>
+                        <h6 style="color:rgba(3, 3, 3, 0.918);" class="text-right"><b>login</b></h6>
+                    </td>
+
+                    <td>
+                        <h6 style="color:rgba(3, 3, 3, 0.918);" class="text-right"><b>mot de pass</b></h6>
+                    </td>
+                    <td>
+                        <h6 style="color:rgba(3, 3, 3, 0.918);" class="text-right"><b>liste des commandes</b></h6>
+                    </td>
+                    <td>
+                        <h6 style="color:rgba(3, 3, 3, 0.918);" class="text-right"><b>choisir des options</b></h6>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of ListUtilistaeur  | paginate: { itemsPerPage:3, currentPage: pt, id: 'pt' }">
+                    <td class="text-center">{{user.nom}}</td>
+                    <td class="text-center">{{user.prenom}}</td>
+                    <td class="text-right">{{user.login}}</td>
+                    <td class="text-right">{{user.motpasse}}</td>
+                    <td class="text-right">
+                        <p *ngFor="let c of user.commandes">commande_id: {{c.id_commande}} etat_commande: {{c.etat}}</p>
+                    </td>
+
+
+                    <td align="center"><button class='btn btn-outline-success btn-sm' (click)="showEditModal(user)">
+            <i class="fa fa-edit" aria-hidden="true"></i>editer</button><button style="margin:10px;" class='btn btn-outline-danger btn-sm' (click)="showDeleteModal(user)">
+            <i class="fa fa-trash" aria-hidden="true"></i> supprimer
+          </button>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="panel-footer panel-default pager">
+            <pagination-controls (pageChange)="pt =$event" id="pt"></pagination-controls>
+        </div>
+    </div>
+</div>
+<div class="card-footer">
+    <div class="col-2">
+        <button type="button" style="background-color:green" (click)="showAddModal()" class="btn btn-block btn-primary">Ajouter</button>
+        <button type="button" style="background-color:blue" (click)="retoure()" class="btn btn-block btn-primary">Retour</button>
+
+    </div>
+</div>
+
+
+
+<div bsModal #utilisateurModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Utilisateur</h4>
+                <button type="button" class="close" (click)="utilisateurModal.hide()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+            </div>
+            <div class="modal-body" style="padding: 52px">
+                <form class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Nom:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" style="font-weight: bold;color: black;" [(ngModel)]="utilisateur.nom" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Prenom:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" style="font-weight: bold;color: black;" [(ngModel)]="utilisateur.prenom" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Login:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" style="font-weight: bold;color: black;" [(ngModel)]="utilisateur.login" [ngModelOptions]="{standalone: true}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Mot de passe:</label>
+                        <div class="col-md-8">
+                            <input type="password" class="form-control" style="font-weight: bold;color: black;" [(ngModel)]="utilisateur.motpasse" [ngModelOptions]="{standalone: true}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">CHOISIR DES COMMANDES:</label>
+                        <div class="col-md-8">
+
+                            <ng-select [multiple]="true" [(ngModel)]="utilisateur.commandes" [ngModelOptions]="{standalone: true}">
+                                <ng-option *ngFor="let optionsl of commandelist" [value]="optionsl">{{optionsl.etat}}</ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="background-color: red" class="btn btn-primary" (click)="utilisateurModal.hide()">Annuler</button>
+                <button type="button" style="background-color:green" (click)="saveUtilisateur()" class="btn btn-primary">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dark  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Suppression</h4>
+                <button type="button" class="close" (click)="deleteModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>l
+          </button>
+            </div>
+            <div class="modal-body" style="padding: 52px">
+                Êtes-vous sûr de vouloir supprimer ?
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" style="background-color:red" (click)="deleteModal.hide()">Annuler</button>
+                <button type="button" style="background-color:green" (click)="delete()" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<notifier-container></notifier-container>

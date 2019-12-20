@@ -1,0 +1,107 @@
+<div class="container-fluid p-0">
+
+    <!-- Bootstrap row -->
+    <div class="row" id="body-row">
+        <!-- Sidebar -->
+        <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+            <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+            <!-- Bootstrap List Group -->
+            <ul class="list-group">
+                <!-- Separator with title -->
+                <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                    <small> MENU</small>
+                </li>
+                <!-- /END Separator -->
+                <!-- Menu with submenu -->
+                <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-dashboard fa-fw mr-3"></span>
+                        <span style="color: darkslategrey;" class="menu-collapsed">UTILISATEUR</span>
+                        <span class="submenu-icon ml-auto"></span>
+                    </div>
+                </a>
+                <!-- Submenu content -->
+                <div id='submenu1' class="collapse sidebar-submenu">
+                    <a routerLink="/dashboard/user" class="list-group-item list-group-item-action bg-dark text-white">
+                        <span style="color:bisque" class="menu-collapsed">GERER UTILISATEUR
+                        </span>
+                    </a>
+                    <a routerLink="/dashboard/listeuser" class="list-group-item list-group-item-action bg-dark text-white">
+                        <span style="color:bisque" class="menu-collapsed">LISTE DES UTILISATEURS</span>
+                    </a>
+                </div>
+                <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-user fa-fw mr-3"></span>
+                        <span class="menu-collapsed" style="color: darkslategrey;"> PRODUIT</span>
+                        <span class="submenu-icon ml-auto"></span>
+                    </div>
+                </a>
+                <!-- Submenu content -->
+                <div id='submenu2' class="collapse sidebar-submenu">
+                    <a routerLink="/dashboard/produit" class="list-group-item list-group-item-action bg-dark text-white">
+                        <span style="color:bisque" class="menu-collapsed">GERER PRODUIT</span>
+                    </a>
+                    <a routerLink="/dashboard/listeproduit" class="list-group-item list-group-item-action bg-dark text-white">
+                        <span style="color:bisque" routerLink="/dashboard/listeproduit" class="menu-collapsed">LISTES DES PRODUITS</span>
+                    </a>
+                </div>
+                <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-user fa-fw mr-3"></span>
+                        <span class="menu-collapsed" style="color: darkslategrey;">COMMANDE</span>
+                        <span class="submenu-icon ml-auto"></span>
+                    </div>
+                </a>
+                <!-- Submenu content -->
+                <div id='submenu3' class="collapse sidebar-submenu">
+                    <a routerLink="/dashboard/commande" class="list-group-item list-group-item-action bg-dark text-white">
+                        <span style="color:bisque" class="menu-collapsed">GERER COMMANDES</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark text-white" routerLink="/dashboard/listecommande">
+                        <span style="color:bisque" class="menu-collapsed">LISTES DES COMMANDES</span>
+                    </a>
+                </div>
+                <!-- Separator with title -->
+                <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                </li>
+                <!-- /END Separator -->
+
+                <!-- Separator without title -->
+                <li class="list-group-item sidebar-separator menu-collapsed"></li>
+                <!-- /END Separator -->
+
+                <!-- Logo -->
+
+            </ul>
+            <!-- List Group END-->
+        </div>
+        <!-- sidebar-container END -->
+
+        <!-- MAIN -->
+        <div class="col">
+
+            <h1>
+                SESAME MARKETPALCE <small class="text-muted"></small>
+            </h1>
+
+
+            <div class="card">
+                <router-outlet></router-outlet>
+            </div>
+
+
+
+        </div>
+        <!-- Main Col END -->
+        <li class="nav-item px-5" dropdown placement="bottom right">
+            <a class="nav-link" style="font-weight: bold;" href="#" role="button" aria-haspopup="true" (click)="logout()">
+                <img style="height: 20px;" src="assets/deconnect.png" class="img-avatar" /> Déconnexion
+            </a>
+        </li>
+    </div>
+    <!-- body-row END -->
+
+
+</div>
+<!-- container -->

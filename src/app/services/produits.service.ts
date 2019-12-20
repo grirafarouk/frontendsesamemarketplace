@@ -1,47 +1,59 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { produits } from '../models/produit';
+import { produit } from '../models/produit';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProduitsService {
+  httpOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    })
+  };
 
   constructor(private httpClient:HttpClient) {}
 
-   public host:String="http://localhost:8080"
+   public host:String="http://localhost:8584/produit"
   
    public getproduits (page:number,size:number){
 
     return this.httpClient.get(this.host+"/produits?page="+page+"&size="+size);
   }
+  public getall ():Observable<any>{
 
+    return this.httpClient.get(this.host+"/all");
+  }
   public getproductbykey(mc:string,page:number,size:number)
   {
 
     return this.httpClient.get(this.host+"/produits/search/recherchepage?mc="+mc+"&page="+page+"&size="+size);
   }
 
-  public deleteressource(url)
+  public deleteressource(data)
 
   {
-    return this.httpClient.delete(url);
+    return this.httpClient.delete(this.host+"/delete/"+data.id);
 
   }
+  public searchproduct(name: any): Observable<any> {
+    return this.httpClient.get(this.host+"/search/" + name)
 
-  public saveressource(url,data):Observable<produits>{
 
-    return this.httpClient.post<produits>(url,data);
   }
-  public getressource(url):Observable<produits>{
+  public saveressource(data):Observable<produit>{
 
-    return this.httpClient.get<produits>(url);
+    return this.httpClient.post<produit>(this.host+"/add",data,this.httpOptions);
+  }
+  public getressource(url):Observable<produit>{
+
+    return this.httpClient.get<produit>(url);
   }
 
-  public editressource(url,data):Observable<produits>{
+  public editressource(data):Observable<produit>{
 
-    return this.httpClient.put<produits>(url,data);
+    return this.httpClient.put<produit>(this.host+"/edit",data,this.httpOptions);
   }
 
 }

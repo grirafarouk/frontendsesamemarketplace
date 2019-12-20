@@ -1,4 +1,4 @@
-export class produits
+export class produit
 {
  public id:String;
  public designation:String;
